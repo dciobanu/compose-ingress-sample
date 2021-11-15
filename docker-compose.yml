@@ -1,0 +1,32 @@
+version: '3.1'
+services:
+    app-1:
+        build: app-1
+        networks: 
+            - app-1-net
+    app-2:
+        build: app-2
+        networks: 
+            - app-23-net
+    app-3:
+        build: app-3
+        networks: 
+            - app-23-net
+    proxy:
+        build: proxy
+        depends_on:
+            - app-1
+            - app-2
+            - app-3                        
+        ports:
+            - "80:80"        
+        networks:
+            - app-1-net
+            - app-23-net
+            - default
+
+networks:
+    app-1-net:
+        driver: bridge
+    app-23-net:
+        driver: bridge
